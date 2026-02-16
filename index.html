@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Downtown 1st — Luxury Miami Rentals</title>
+<meta name="description" content="Downtown 1st (D1) is a luxury high-rise rental in the heart of Downtown Miami. 56 stories with stunning bay, river, and skyline views. Studios, 1, 2 & 3 bedroom residences.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        dark: '#0c1220',
+        accent: '#c8a45e',
+        'accent-light': '#dfc07a',
+        surface: '#141e30',
+        'surface-light': '#1c2940'
+      },
+      fontFamily: {
+        display: ['Playfair Display', 'serif'],
+        body: ['Inter', 'sans-serif']
+      }
+    }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  body { font-family: 'Inter', sans-serif; background: #0c1220; }
+  .font-display { font-family: 'Playfair Display', serif; }
+  .hero-overlay { background: linear-gradient(to bottom, rgba(12,18,32,0.3) 0%, rgba(12,18,32,0.7) 60%, rgba(12,18,32,1) 100%); }
+  .glass { background: rgba(20,30,48,0.7); backdrop-filter: blur(16px); border: 1px solid rgba(200,164,94,0.12); }
+  .gold-line { width: 60px; height: 2px; background: linear-gradient(90deg, #c8a45e, #dfc07a); }
+  .gallery-img { transition: transform 0.5s ease, filter 0.5s ease; }
+  .gallery-img:hover { transform: scale(1.05); filter: brightness(1.15); }
+  .tab-btn.active { color: #c8a45e; border-color: #c8a45e; }
+  .tab-btn { color: #9ca3af; border-color: transparent; border-bottom: 2px solid transparent; transition: all 0.3s; }
+  .tab-btn:hover { color: #dfc07a; }
+  .floorplan-panel { display: none; }
+  .floorplan-panel.active { display: block; }
+  .nav-link { position: relative; }
+  .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: #c8a45e; transition: width 0.3s; }
+  .nav-link:hover::after { width: 100%; }
+  header.scrolled { background: rgba(12,18,32,0.95); backdrop-filter: blur(12px); }
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in { animation: fadeIn 0.8s ease forwards; }
+  .amenity-card { transition: transform 0.3s, box-shadow 0.3s; }
+  .amenity-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(200,164,94,0.1); }
+</style>
+</head>
+<body class="bg-dark text-gray-300">
+
+<!-- Header -->
+<header id="header" class="fixed top-0 w-full z-50 transition-all duration-500">
+<div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+  <a href="#" class="flex items-center gap-3">
+    <img src="images/LOGO.png" alt="Downtown 1st" class="h-10">
+  </a>
+  <nav class="hidden md:flex items-center gap-8 text-sm tracking-wide">
+    <a href="#about" class="nav-link text-gray-300 hover:text-accent transition">About</a>
+    <a href="#amenities" class="nav-link text-gray-300 hover:text-accent transition">Amenities</a>
+    <a href="#gallery" class="nav-link text-gray-300 hover:text-accent transition">Gallery</a>
+    <a href="#floorplans" class="nav-link text-gray-300 hover:text-accent transition">Floor Plans</a>
+    <a href="#contact" class="nav-link text-gray-300 hover:text-accent transition">Contact</a>
+    <a href="Brochure.pdf" target="_blank" class="px-5 py-2 border border-accent text-accent hover:bg-accent hover:text-dark rounded transition text-sm">Brochure</a>
+  </nav>
+  <button id="menuBtn" class="md:hidden text-white text-2xl"><i class="fa-solid fa-bars"></i></button>
+</div>
+<!-- Mobile menu -->
+<div id="mobileMenu" class="hidden md:hidden glass mx-4 rounded-xl p-6 space-y-4 text-center">
+  <a href="#about" class="block text-gray-300 hover:text-accent py-2">About</a>
+  <a href="#amenities" class="block text-gray-300 hover:text-accent py-2">Amenities</a>
+  <a href="#gallery" class="block text-gray-300 hover:text-accent py-2">Gallery</a>
+  <a href="#floorplans" class="block text-gray-300 hover:text-accent py-2">Floor Plans</a>
+  <a href="#contact" class="block text-gray-300 hover:text-accent py-2">Contact</a>
+  <a href="Brochure.pdf" target="_blank" class="block text-accent py-2">Download Brochure</a>
+</div>
+</header>
+
+<!-- Hero -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <img src="images/banner-scaled.jpg" alt="Downtown 1st Miami" class="absolute inset-0 w-full h-full object-cover">
+  <div class="hero-overlay absolute inset-0"></div>
+  <div class="relative z-10 text-center px-6 fade-in">
+    <div class="gold-line mx-auto mb-8"></div>
+    <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight">Downtown 1st</h1>
+    <p class="text-xl md:text-2xl text-gray-300 font-light tracking-wide mb-4">A Luxury Miami Rental</p>
+    <p class="text-gray-400 text-lg mb-10">56 Stories · Bay & Skyline Views · Downtown Miami</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#gallery" class="px-8 py-3 bg-accent text-dark font-semibold rounded hover:bg-accent-light transition">Explore</a>
+      <a href="#contact" class="px-8 py-3 border border-white/20 text-white rounded hover:border-accent hover:text-accent transition">Schedule a Tour</a>
+    </div>
+  </div>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+    <i class="fa-solid fa-chevron-down text-accent/60 text-xl"></i>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="py-24 px-6">
+<div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+  <div>
+    <div class="gold-line mb-6"></div>
+    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Life at the<br>Center of It All</h2>
+    <p class="text-gray-400 leading-relaxed mb-6">Downtown 1st rises 56 stories above the Miami skyline, placing you at the intersection of culture, business, and waterfront living. Designed by Arquitectonica with interiors that blend modern sophistication and warmth, every residence offers panoramic views of Biscayne Bay, the Miami River, and the city skyline.</p>
+    <p class="text-gray-400 leading-relaxed mb-8">With 1, 2, and 3-bedroom residences ranging from 680 to 1,200 square feet, Downtown 1st offers flexible living for professionals, couples, and families who want to be at the heart of Miami.</p>
+    <div class="grid grid-cols-3 gap-6">
+      <div class="text-center">
+        <p class="font-display text-3xl font-bold text-accent">56</p>
+        <p class="text-gray-500 text-sm mt-1">Stories</p>
+      </div>
+      <div class="text-center">
+        <p class="font-display text-3xl font-bold text-accent">13</p>
+        <p class="text-gray-500 text-sm mt-1">Units Per Floor</p>
+      </div>
+      <div class="text-center">
+        <p class="font-display text-3xl font-bold text-accent">4</p>
+        <p class="text-gray-500 text-sm mt-1">Floor Plan Types</p>
+      </div>
+    </div>
+  </div>
+  <div class="relative">
+    <img src="images/front-image.jpg" alt="Downtown 1st Exterior" class="rounded-xl shadow-2xl w-full">
+    <div class="absolute -bottom-6 -left-6 glass rounded-xl px-6 py-4 hidden md:block">
+      <p class="text-accent font-display text-lg font-semibold">30 SW 1st Street</p>
+      <p class="text-gray-400 text-sm">Miami, FL 33130</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Amenities -->
+<section id="amenities" class="py-24 px-6 bg-surface/30">
+<div class="max-w-7xl mx-auto">
+  <div class="text-center mb-16">
+    <div class="gold-line mx-auto mb-6"></div>
+    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Resort-Level Amenities</h2>
+    <p class="text-gray-400 max-w-2xl mx-auto">Level 15 features a full-floor amenity deck with everything you need to live, work, and unwind.</p>
+  </div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="amenity-card glass rounded-xl p-6 text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+        <i class="fa-solid fa-water-ladder text-accent text-xl"></i>
+      </div>
+      <h3 class="text-white font-semibold mb-2">Dual Pools</h3>
+      <p class="text-gray-400 text-sm">Bay-facing and river-facing pools with lounge decks and cabana seating</p>
+    </div>
+    <div class="amenity-card glass rounded-xl p-6 text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+        <i class="fa-solid fa-dumbbell text-accent text-xl"></i>
+      </div>
+      <h3 class="text-white font-semibold mb-2">Fitness Center</h3>
+      <p class="text-gray-400 text-sm">Full cardio and weight training facilities plus a dedicated boxing area</p>
+    </div>
+    <div class="amenity-card glass rounded-xl p-6 text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+        <i class="fa-solid fa-mug-hot text-accent text-xl"></i>
+      </div>
+      <h3 class="text-white font-semibold mb-2">Residents' Lounge</h3>
+      <p class="text-gray-400 text-sm">Café and lounge area perfect for remote work or socializing</p>
+    </div>
+    <div class="amenity-card glass rounded-xl p-6 text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+        <i class="fa-solid fa-city text-accent text-xl"></i>
+      </div>
+      <h3 class="text-white font-semibold mb-2">Panoramic Views</h3>
+      <p class="text-gray-400 text-sm">360° views of Biscayne Bay, Miami River, Downtown, and Brickell skylines</p>
+    </div>
+    <div class="amenity-card glass rounded-xl p-6 text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+        <i class="fa-solid fa-couch text-accent text-xl"></i>
+      </div>
+      <h3 class="text-white font-semibold mb-2">Modern Interiors</h3>
+      <p class="text-gray-400 text-sm">European kitchens, in-unit laundry, and premium finishes throughout</p>
+    </div>
+    <div class="amenity-card glass rounded-xl p-6 text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+        <i class="fa-solid fa-sun text-accent text-xl"></i>
+      </div>
+      <h3 class="text-white font-semibold mb-2">Private Terraces</h3>
+      <p class="text-gray-400 text-sm">Every residence features a private outdoor terrace</p>
+    </div>
+    <div class="amenity-card glass rounded-xl p-6 text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+        <i class="fa-solid fa-shield-halved text-accent text-xl"></i>
+      </div>
+      <h3 class="text-white font-semibold mb-2">24/7 Security</h3>
+      <p class="text-gray-400 text-sm">Secured lobby, key-card access, and round-the-clock staff</p>
+    </div>
+    <div class="amenity-card glass rounded-xl p-6 text-center">
+      <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-accent/10 flex items-center justify-center">
+        <i class="fa-solid fa-location-dot text-accent text-xl"></i>
+      </div>
+      <h3 class="text-white font-semibold mb-2">Prime Location</h3>
+      <p class="text-gray-400 text-sm">Steps from Brickell City Centre, Metromover, and Miami's best dining</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Gallery -->
+<section id="gallery" class="py-24 px-6">
+<div class="max-w-7xl mx-auto">
+  <div class="text-center mb-16">
+    <div class="gold-line mx-auto mb-6"></div>
+    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Gallery</h2>
+    <p class="text-gray-400">Discover the lifestyle at Downtown 1st</p>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+    <div class="col-span-2 row-span-2 rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/AR_Downtown.jpg" alt="Downtown Miami View" class="gallery-img w-full h-full object-cover">
+    </div>
+    <div class="rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/AR_Lifestyle_02-2.jpg" alt="Lifestyle" class="gallery-img w-full h-64 object-cover">
+    </div>
+    <div class="rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/AR_Lifestyle_05-1.jpg" alt="Lifestyle" class="gallery-img w-full h-64 object-cover">
+    </div>
+    <div class="rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/AR_Lifestyle_08-1.jpg" alt="Interior" class="gallery-img w-full h-64 object-cover">
+    </div>
+    <div class="rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/AR_Lifestyle_10-1.jpg" alt="Amenities" class="gallery-img w-full h-64 object-cover">
+    </div>
+    <div class="col-span-2 rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/AR_DD.jpg" alt="Aerial View" class="gallery-img w-full h-72 object-cover">
+    </div>
+    <div class="rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/AR_Lifestyle_14-1.jpg" alt="Living Space" class="gallery-img w-full h-64 object-cover">
+    </div>
+    <div class="rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/AR_Lifestyle_15-1.jpg" alt="Lifestyle" class="gallery-img w-full h-64 object-cover">
+    </div>
+    <div class="rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/AR_South_Beach-1.jpg" alt="South Beach" class="gallery-img w-full h-64 object-cover">
+    </div>
+    <div class="rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/iStock-1126503889.jpg" alt="Miami Skyline" class="gallery-img w-full h-64 object-cover">
+    </div>
+    <div class="col-span-2 rounded-xl overflow-hidden cursor-pointer" onclick="openLightbox(this)">
+      <img src="images/iStock-874700028.jpg" alt="Miami Bay" class="gallery-img w-full h-72 object-cover">
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <button class="absolute top-6 right-6 text-white text-3xl hover:text-accent transition z-10">&times;</button>
+  <button id="lbPrev" class="absolute left-6 text-white text-3xl hover:text-accent transition z-10" onclick="event.stopPropagation();navLightbox(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+  <button id="lbNext" class="absolute right-6 text-white text-3xl hover:text-accent transition z-10" onclick="event.stopPropagation();navLightbox(1)"><i class="fa-solid fa-chevron-right"></i></button>
+  <img id="lbImg" src="" alt="Gallery Image" class="rounded-lg">
+</div>
+
+<!-- Floor Plans -->
+<section id="floorplans" class="py-24 px-6 bg-surface/30">
+<div class="max-w-7xl mx-auto">
+  <div class="text-center mb-16">
+    <div class="gold-line mx-auto mb-6"></div>
+    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Floor Plans</h2>
+    <p class="text-gray-400">Levels 15–56 · 13 residences per floor</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flex flex-wrap justify-center gap-2 mb-12">
+    <button class="tab-btn active px-5 py-2 text-sm font-medium rounded-full border" onclick="showPlan('pool')" data-tab="pool">Pool Deck (L15)</button>
+    <button class="tab-btn px-5 py-2 text-sm font-medium rounded-full border" onclick="showPlan('typical')" data-tab="typical">Typical Floor</button>
+    <button class="tab-btn px-5 py-2 text-sm font-medium rounded-full border" onclick="showPlan('1br-680')" data-tab="1br-680">1 BR · 680 SF</button>
+    <button class="tab-btn px-5 py-2 text-sm font-medium rounded-full border" onclick="showPlan('1br-750')" data-tab="1br-750">1 BR · 750 SF</button>
+    <button class="tab-btn px-5 py-2 text-sm font-medium rounded-full border" onclick="showPlan('2br-970')" data-tab="2br-970">2 BR · 970 SF</button>
+    <button class="tab-btn px-5 py-2 text-sm font-medium rounded-full border" onclick="showPlan('2br-1187')" data-tab="2br-1187">2 BR · 1,187 SF</button>
+    <button class="tab-btn px-5 py-2 text-sm font-medium rounded-full border" onclick="showPlan('3br')" data-tab="3br">3 BR · 1,200 SF</button>
+  </div>
+
+  <!-- Panels -->
+  <div class="max-w-4xl mx-auto">
+    <div id="plan-pool" class="floorplan-panel active">
+      <div class="glass rounded-xl p-6">
+        <img src="images/image-006-1.jpg" alt="Pool Deck Floor Plan" class="w-full rounded-lg mb-6 cursor-pointer" onclick="openLightbox(this)">
+        <div class="grid sm:grid-cols-3 gap-4 text-center">
+          <div><p class="text-accent font-display text-lg font-semibold">Level 15</p><p class="text-gray-400 text-sm">Pool Deck & Amenities</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">5 Residences</p><p class="text-gray-400 text-sm">1, 2 & 3 Bedrooms</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">Dual Pools</p><p class="text-gray-400 text-sm">Bay & River Facing</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="plan-typical" class="floorplan-panel">
+      <div class="glass rounded-xl p-6">
+        <img src="images/image-007-1.jpg" alt="Typical Floor Plan" class="w-full rounded-lg mb-6 cursor-pointer" onclick="openLightbox(this)">
+        <div class="grid sm:grid-cols-3 gap-4 text-center">
+          <div><p class="text-accent font-display text-lg font-semibold">Levels 16–56</p><p class="text-gray-400 text-sm">Typical Tower Floor</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">13 Units</p><p class="text-gray-400 text-sm">Per Floor</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">1–3 Bedrooms</p><p class="text-gray-400 text-sm">680–1,200 SF</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="plan-1br-680" class="floorplan-panel">
+      <div class="glass rounded-xl p-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <img src="images/image-008.jpg" alt="1BR 680SF Floor Plan - Units 03/04" class="w-full rounded-lg cursor-pointer" onclick="openLightbox(this)">
+            <p class="text-center text-gray-400 text-sm mt-2">Units 03 & 04 · Downtown Views</p>
+          </div>
+          <div>
+            <img src="images/image-009.jpg" alt="1BR 680SF Floor Plan - Units 09/10" class="w-full rounded-lg cursor-pointer" onclick="openLightbox(this)">
+            <p class="text-center text-gray-400 text-sm mt-2">Units 09 & 10 · Brickell Views</p>
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-4 text-center mt-6">
+          <div><p class="text-accent font-display text-lg font-semibold">1 Bed / 1 Bath</p><p class="text-gray-400 text-sm">Open Layout</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">680 SF</p><p class="text-gray-400 text-sm">Total Living Area</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">Levels 15–56</p><p class="text-gray-400 text-sm">Units 03, 04, 09, 10</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="plan-1br-750" class="floorplan-panel">
+      <div class="glass rounded-xl p-6">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <img src="images/image-010.jpg" alt="1BR 750SF Floor Plan - Units 01/12" class="w-full rounded-lg cursor-pointer" onclick="openLightbox(this)">
+            <p class="text-center text-gray-400 text-sm mt-2">Units 01 & 12 · River Views</p>
+          </div>
+          <div>
+            <img src="images/image-011.jpg" alt="1BR 750SF Floor Plan - Unit 13" class="w-full rounded-lg cursor-pointer" onclick="openLightbox(this)">
+            <p class="text-center text-gray-400 text-sm mt-2">Unit 13</p>
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-4 text-center mt-6">
+          <div><p class="text-accent font-display text-lg font-semibold">1 Bed / 1 Bath</p><p class="text-gray-400 text-sm">Spacious Layout</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">750 SF</p><p class="text-gray-400 text-sm">Total Living Area</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">Levels 16–56</p><p class="text-gray-400 text-sm">Units 01, 12, 13</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="plan-2br-970" class="floorplan-panel">
+      <div class="glass rounded-xl p-6">
+        <img src="images/image-012.jpg" alt="2BR 970SF Floor Plan" class="w-full rounded-lg mb-6 cursor-pointer max-w-lg mx-auto" onclick="openLightbox(this)">
+        <div class="grid sm:grid-cols-3 gap-4 text-center">
+          <div><p class="text-accent font-display text-lg font-semibold">2 Bed / 2 Bath</p><p class="text-gray-400 text-sm">Split Layout</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">970 SF</p><p class="text-gray-400 text-sm">Total Living Area</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">Levels 16–56</p><p class="text-gray-400 text-sm">Unit 06</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="plan-2br-1187" class="floorplan-panel">
+      <div class="glass rounded-xl p-6">
+        <img src="images/image-013.jpg" alt="2BR 1187SF Floor Plan" class="w-full rounded-lg mb-6 cursor-pointer max-w-lg mx-auto" onclick="openLightbox(this)">
+        <div class="grid sm:grid-cols-3 gap-4 text-center">
+          <div><p class="text-accent font-display text-lg font-semibold">2 Bed / 2 Bath</p><p class="text-gray-400 text-sm">Corner Layout</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">1,187 SF</p><p class="text-gray-400 text-sm">Total Living Area</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">Levels 15–56</p><p class="text-gray-400 text-sm">Units 02, 05, 08, 11</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="plan-3br" class="floorplan-panel">
+      <div class="glass rounded-xl p-6">
+        <img src="images/image-014.jpg" alt="3BR 1200SF Floor Plan" class="w-full rounded-lg mb-6 cursor-pointer max-w-lg mx-auto" onclick="openLightbox(this)">
+        <div class="grid sm:grid-cols-3 gap-4 text-center">
+          <div><p class="text-accent font-display text-lg font-semibold">3 Bed / 2 Bath</p><p class="text-gray-400 text-sm">Largest Residence</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">1,200 SF</p><p class="text-gray-400 text-sm">Total Living Area</p></div>
+          <div><p class="text-accent font-display text-lg font-semibold">Levels 16–56</p><p class="text-gray-400 text-sm">Unit 07</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- Location -->
+<section class="py-24 px-6">
+<div class="max-w-7xl mx-auto">
+  <div class="text-center mb-12">
+    <div class="gold-line mx-auto mb-6"></div>
+    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Location</h2>
+    <p class="text-gray-400">30 SW 1st Street, Miami, FL 33130</p>
+  </div>
+  <div class="rounded-xl overflow-hidden h-96">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.0!2d-80.1948!3d25.7735!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d9b6a0a0a0a0a%3A0x0!2s30+SW+1st+St%2C+Miami%2C+FL+33130!5e0!3m2!1sen!2sus!4v1" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-24 px-6 bg-surface/30">
+<div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16">
+  <div>
+    <div class="gold-line mb-6"></div>
+    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Get in Touch</h2>
+    <p class="text-gray-400 leading-relaxed mb-8">Interested in making Downtown 1st your home? Contact us to schedule a private tour or learn about available residences.</p>
+    <div class="space-y-6">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+          <i class="fa-solid fa-location-dot text-accent"></i>
+        </div>
+        <div>
+          <p class="text-white font-medium">Address</p>
+          <p class="text-gray-400">30 SW 1st Street, Miami, FL 33130</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+          <i class="fa-solid fa-phone text-accent"></i>
+        </div>
+        <div>
+          <p class="text-white font-medium">Phone</p>
+          <a href="tel:3056051111" class="text-gray-400 hover:text-accent transition">305.605.1111</a>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+          <i class="fa-solid fa-envelope text-accent"></i>
+        </div>
+        <div>
+          <p class="text-white font-medium">Email</p>
+          <a href="mailto:info@downtown1st.com" class="text-gray-400 hover:text-accent transition">info@downtown1st.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <form class="glass rounded-xl p-8 space-y-6" onsubmit="submitForm(event)">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <input type="text" name="first_name" placeholder="First Name" required class="bg-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition">
+        <input type="text" name="last_name" placeholder="Last Name" class="bg-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition">
+      </div>
+      <input type="email" name="email" placeholder="Email Address" required class="w-full bg-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition">
+      <input type="tel" name="phone" placeholder="Phone Number" class="w-full bg-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition">
+      <textarea name="message" rows="4" placeholder="Tell us what you're looking for..." class="w-full bg-dark/50 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-accent transition resize-none"></textarea>
+      <button type="submit" id="submitBtn" class="w-full py-3 bg-accent text-dark font-semibold rounded-lg hover:bg-accent-light transition">Send Message</button>
+    </form>
+  </div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-white/5 py-12 px-6">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+  <img src="images/LOGO.png" alt="Downtown 1st" class="h-8">
+  <p class="text-gray-600 text-sm">© 2026 Downtown 1st. All Rights Reserved. A Melo Group Property.</p>
+  <div class="flex gap-6 text-sm">
+    <a href="tel:3056051111" class="text-gray-500 hover:text-accent transition">305.605.1111</a>
+    <a href="mailto:info@downtown1st.com" class="text-gray-500 hover:text-accent transition">info@downtown1st.com</a>
+  </div>
+</div>
+</footer>
+
+<script>
+// Header scroll
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Mobile menu
+document.getElementById('menuBtn').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.toggle('hidden');
+});
+document.querySelectorAll('#mobileMenu a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('mobileMenu').classList.add('hidden'));
+});
+
+// Floor plan tabs
+function showPlan(id) {
+  document.querySelectorAll('.floorplan-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('plan-' + id).classList.add('active');
+  document.querySelector(`[data-tab="${id}"]`).classList.add('active');
+}
+
+// Lightbox
+let lbImages = [];
+let lbIndex = 0;
+
+function openLightbox(el) {
+  const img = el.querySelector('img') || el;
+  const allImgs = [...document.querySelectorAll('.gallery-img, .floorplan-panel.active img')];
+  lbImages = allImgs.map(i => i.src);
+  lbIndex = lbImages.indexOf(img.src);
+  if (lbIndex === -1) { lbImages = [img.src]; lbIndex = 0; }
+  document.getElementById('lbImg').src = lbImages[lbIndex];
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navLightbox(dir) {
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  document.getElementById('lbImg').src = lbImages[lbIndex];
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navLightbox(-1);
+  if (e.key === 'ArrowRight') navLightbox(1);
+});
+
+// Contact form
+function submitForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const form = e.target;
+  const data = new FormData(form);
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  // mailto fallback
+  const subject = encodeURIComponent('Downtown 1st Inquiry');
+  const body = encodeURIComponent(
+    `Name: ${data.get('first_name')} ${data.get('last_name')}\nEmail: ${data.get('email')}\nPhone: ${data.get('phone')}\n\n${data.get('message')}`
+  );
+  window.location.href = `mailto:info@downtown1st.com?subject=${subject}&body=${body}`;
+  setTimeout(() => { btn.textContent = 'Message Sent!'; form.reset(); setTimeout(() => { btn.textContent = 'Send Message'; btn.disabled = false; }, 3000); }, 1000);
+}
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('fade-in'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
